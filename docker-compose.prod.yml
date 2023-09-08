@@ -1,0 +1,127 @@
+version: "3"
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+      args:
+        http_proxy: $http_proxy
+        https_proxy: $https_proxy
+    env_file:
+      - ./.env.prod
+    ports:
+      - 8001:8001
+    command: gunicorn config.wsgi:application --bind 0.0.0.0:8001
+    depends_on:
+      - db
+      - rabbitmq
+      - redis
+      - smtp
+    networks:
+      - boilerplate_prod_network
+    volumes:
+      - static_volume:/home/app/staticfiles
+      - media_volume:/home/app/mediafiles
+
+  web_api:
+    build: ./nginx
+    restart: always
+    ports:
+      - 8000:8000
+    volumes:
+      - static_volume:/code/staticfiles
+      - media_volume:/code/mediafiles
+    depends_on:
+      - api
+    networks:
+      - boilerplate_prod_network
+
+  celery:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+      args:
+        http_proxy: $http_proxy
+        https_proxy: $https_proxy
+    env_file:
+      - ./.env.prod
+    command: celery -A config worker --loglevel=info
+    depends_on:
+      - db
+      - rabbitmq
+      - redis
+      - smtp
+    networks:
+      - boilerplate_prod_network
+
+  celery-beat:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+      args:
+        http_proxy: $http_proxy
+        https_proxy: $https_proxy
+    env_file:
+      - ./.env.prod
+    command: celery -A config beat --loglevel=info
+    depends_on:
+      - db
+      - rabbitmq
+      - redis
+      - smtp
+    networks:
+      - boilerplate_prod_network
+
+  smtp:
+    image: maildev/maildev
+    ports:
+      - 1025:1025
+      - 1080:1080
+    networks:
+      - boilerplate_prod_network
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    networks:
+      - boilerplate_prod_network
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+    networks:
+      - boilerplate_prod_network
+
+  db:
+    image: postgres:13
+    ports:
+      - "5432:5432"
+    env_file:
+      - ./.env.db.prod
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    networks:
+      - boilerplate_prod_network
+
+  adminer:
+    image: adminer
+    ports:
+      - 9000:8080
+    networks:
+      - boilerplate_prod_network
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:
+
+networks:
+  boilerplate_prod_network:
+    driver: bridge
+    name: boilerplate_prod_network
