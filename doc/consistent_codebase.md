@@ -1,11 +1,18 @@
 # To maintain a consistent codebase:
 
+###### Setup
+- **.pre-commit-config.yaml** file to put all git hooks.
+- **pre-commit install** This will set up the git hooks as specified in the .pre-commit-config.yaml file.
+
+
+---
+
 #### We use pre-commit with Black and Flake8
 
 - Let black format your code. This ensures consistency in styling, including the use of double quotes for strings.
 - Run flake8 to catch any potential issues, bugs, or deviations from coding standards.
 - Address any issues raised by flake8 that aren't related to code style (since black handles style).
-- 
+ 
 In practice, when you run git commit, the pre-commit tool will run both black and flake8 in the order they appear in your **.pre-commit-config.yaml**. 
 If black modifies any files, you'll need to re-add them (git add) before committing. If flake8 raises any issues, you'll need to address them manually before the commit can proceed.
 
