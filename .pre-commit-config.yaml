@@ -35,6 +35,10 @@ repos:
             "flake8-comprehensions",
             "flake8-docstrings",
             "flake8-implicit-str-concat",
+            "flake8-import-order",
+            "flake8-quotes",
+            "flake8-string-format",
+            "flake8-black",
             "pydocstyle>=5.0.0",
           ]
         exclude: ^tests/$
