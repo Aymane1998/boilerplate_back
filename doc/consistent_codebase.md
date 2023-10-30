@@ -16,6 +16,6 @@ If black modifies any files, you'll need to re-add them (git add) before committ
 - The pre-commit hooks run.
 - If a hook like black makes changes, the commit will be paused.
 - You stage the changes with git add <modified-files>.
-- You finalize the commit with **git commit --continue**.
+- You finalize the commit with **git commit -m "Your commit message"**.
 
 The git commit --continue command tells Git that you've resolved the issues and that it should proceed with the commit using the message you originally provided.
