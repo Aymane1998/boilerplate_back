@@ -24,8 +24,6 @@ repos:
     hooks:
       - id: black
         exclude: tests/
-        args: ["-l", "79"]
-        # args: [--check]
   - repo: https://github.com/PyCQA/flake8
     rev: 6.1.0
     hooks:
@@ -34,7 +32,6 @@ repos:
             "flake8-blind-except",
             "flake8-bugbear",
             "flake8-comprehensions",
-            # "flake8-docstrings",
             "flake8-implicit-str-concat",
             "pydocstyle>=5.0.0",
           ]
