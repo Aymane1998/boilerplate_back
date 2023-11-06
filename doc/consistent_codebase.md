@@ -1,5 +1,8 @@
 # To maintain a consistent codebase:
 
+Standardize code formatting.
+We each have our own linter and code formatter. To have clean code, Set up git hooks to apply formatting and linting before committing. If you don't respect certain rules, the commit won't go through. It shows what needs to be fixed, etc.
+
 ###### Setup
 - **.pre-commit-config.yaml** file to put all git hooks.
 - **pre-commit install** This will set up the git hooks as specified in the .pre-commit-config.yaml file.
