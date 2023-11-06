@@ -20,7 +20,8 @@ test:
   extends:
     - .environment-django-ci
   script:
-    - pytest --cov=. --cov-report html --cov-report term
+    # if no tests found, convert exit code 5 to 0
+    - pytest --cov=. --cov-report html --cov-report term  || [ $? -eq 5 ]
   artifacts:
     paths:
       - htmlcov/
