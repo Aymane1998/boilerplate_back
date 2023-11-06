@@ -6,3 +6,5 @@ venv/
 htmlcov/
 logs/
 .coverage
+staticfiles/
+mediafiles/
