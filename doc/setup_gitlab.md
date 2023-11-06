@@ -17,9 +17,9 @@ We uses GitLab Flow as our git branching strategy because GitLab Flow offers mor
 
 # Pull/Merge Template
 
-In GitLab, a merge request template is used to provide a predefined structure for contributors to follow when opening a new merge request. the template is stored in the default branch on **.gitlab/merge_request_templates/feature_request_template.md**
+In GitLab, a merge request template is used to provide a predefined structure for contributors to follow when opening a new merge request. the template is stored in the default branch on **[.gitlab/merge_request_templates/feature_request_template.md](../.gitlab/merge_request_templates/feature_request_template.md)**
 
-you should fill this template on each of the new merge requests.
+you should fill the template on each of the new merge requests.
 
 ---
 
