@@ -4,6 +4,7 @@
 - [Git branch strategy](#git-branch-strategy)
 - [Pull/Merge Template](#pullmerge-template)
 - [Pull/Merge Request Labelling System](#pullmerge-request-labelling-system)
+- [GitLab CI/CD](#gitlab-cicd)
 
 ---
 
@@ -50,3 +51,9 @@ For managing merge requests (MRs) in GitLab (since GitLab refers to "pull reques
     - `Size: XL` - Extra large changes that could potentially affect the system as a whole.
 
 This set of labels should provide enough information for managing your MRs effectively. Labels for type, status, priority, and size are typically sufficient for many projects. you should apply multiple labels to the same merge request (MR) in GitLab to provide as much context as needed.
+
+---
+
+# GitLab CI/CD
+
+We use GitLab CI/CD pipelines to trigger on each push to test, build and deploy. you can see **[.gitlab-ci.yml](../.gitlab-ci.yml)** yaml file that contains the configuration for your CI/CD pipeline.
