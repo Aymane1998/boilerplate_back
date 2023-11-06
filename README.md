@@ -14,4 +14,4 @@ Follow the steps outlined there to clone the repository, install dependencies, a
 
 What things you need to install the software and how to install them:
 - python v3.9
-- docker-desktop
+- [docker-desktop](https://www.docker.com/products/docker-desktop/)
