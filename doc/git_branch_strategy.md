@@ -11,6 +11,7 @@
       - [After Release in Production](#after-release-in-production)
     - [General Practices](#general-practices)
 
+<br/>
 
 ### GitLab Flow Overview
 GitLab Flow is a workflow that incorporates aspects of both Git flow and GitHub flow and is adapted for continuous deployment. This workflow combines [feature-driven development](https://en.wikipedia.org/wiki/Feature-driven_development) and [feature branches](https://martinfowler.com/bliki/FeatureBranch.html) with issue tracking. Here’s how it works:
