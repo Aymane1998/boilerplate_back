@@ -1,0 +1,41 @@
+stages:
+  - test
+  - deploy_staging
+  - deploy_production
+
+test:
+  stage: test
+  script:
+    - echo "Run automated tests"
+    - run-your-tests-here # Replace with your actual test commands
+
+deploy_testing:
+  stage: deploy_testing
+  script:
+    - echo "Deploy to testing environment"
+    - deploy-to-testing-script # Replace with your actual deploy to testing commands
+  environment:
+    name: testing
+  only:
+    - main
+
+deploy_staging:
+  stage: deploy_staging
+  script:
+    - echo "Deploy to staging environment"
+    - deploy-to-staging-script # Replace with your actual deploy to staging commands
+  environment:
+    name: staging
+  only:
+    - /^release\/v.*$/ # or add tag
+
+deploy_production:
+  stage: deploy_production
+  script:
+    - echo "Deploy to production environment"
+    - deploy-to-production-script # Replace with your actual deploy to production commands
+  environment:
+    name: production
+  when: manual
+  only:
+    - /^release\/v.*$/ # or add tag
