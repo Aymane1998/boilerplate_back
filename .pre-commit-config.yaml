@@ -23,7 +23,7 @@ repos:
     rev: 23.10.1
     hooks:
       - id: black
-        exclude: tests/
+        exclude: "(tests/|doc/)"
   - repo: https://github.com/PyCQA/flake8
     rev: 6.1.0
     hooks:
@@ -38,10 +38,11 @@ repos:
             "flake8-import-order",
             "flake8-quotes",
             "flake8-string-format",
+            "flake8-print",
             "flake8-black",
             "pydocstyle>=5.0.0",
           ]
-        exclude: ^tests/$
+        exclude: "(tests/|doc/)"
   - repo: https://github.com/asottile/blacken-docs
     rev: 1.16.0
     hooks:
