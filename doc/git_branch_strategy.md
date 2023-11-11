@@ -1,8 +1,9 @@
 # GitLab Flow
 
 - [GitLab Flow](#gitlab-flow)
-    - [GitLab Flow Overview](#gitlab-flow-overview)
+    - [Overview](#overview)
     - [Branch Types in GitLab Flow](#branch-types-in-gitlab-flow)
+    - [Continuous Deployment Environments](#continuous-deployment-environments)
     - [GitLab CI/CD Workflow Steps](#gitlab-cicd-workflow-steps)
       - [Example `.gitlab-ci.yml` Configuration:](#example-gitlab-ciyml-configuration)
     - [Handling Bugfixes and Hotfixes during different phases](#handling-bugfixes-and-hotfixes-during-different-phases)
@@ -13,7 +14,7 @@
 
 <br/>
 
-### GitLab Flow Overview
+### Overview
 GitLab Flow is a workflow that incorporates aspects of both Git flow and GitHub flow and is adapted for continuous deployment. This workflow combines [feature-driven development](https://en.wikipedia.org/wiki/Feature-driven_development) and [feature branches](https://martinfowler.com/bliki/FeatureBranch.html) with issue tracking. Here’s how it works:
 
 <br/>
@@ -59,6 +60,40 @@ GitLab Flow is a workflow that incorporates aspects of both Git flow and GitHub 
 </p>
 <br/>
 
+### Continuous Deployment Environments
+How we use different environments in conjunction with our branching strategy:
+
+1. **Development Environment:**
+
+**Purpose**: This is where developers initially build and test their features or bug fixes. It's essentially their local or individual development setup.
+**Branches Used:** Feature branches and bugfix branches.
+**Workflow:** Developers work on their tasks within these branches. This environment is more about the developer's local setup (their own machine) where they can run and test their code in isolation before it gets merged anywhere.
+
+2. **Continuous Deployment to Testing Environment:**
+
+**Trigger:** Merges to the main branch.
+**Purpose:** The testing environment is continuously updated with the latest 'production-ready' code from the main branch. This is where QA or automated tests are run to ensure the stability of the code before it's released.
+**Workflow:** Once features/bugfixes are merged into the main branch, they are automatically deployed to this environment.
+
+3. **Staging Environment (Triggered by Release Branch):**
+
+**Trigger:** Creation of a release branch.
+**Purpose:** A pre-production environment that closely mimics the production setup. This is where final testing and client or stakeholder reviews happen.
+**Workflow:** After a set of features and fixes in the main branch is deemed ready for release, a release branch is created, which triggers deployment to staging. Once validated, this branch is then deployed to production.
+
+4. **Feature Environment (Optional):**
+
+**Purpose:** Sometimes, for large features or for features requiring special attention, it's beneficial to have an isolated environment for testing them.
+**Trigger:** Manual deployment of specific feature branches.
+**Workflow:** Not every feature branch is deployed here, only those that require extensive isolated testing or review by stakeholders. This deployment is usually done manually or via a specific trigger other than just creating a feature branch.
+
+<br/>
+
+the "development environment" is essentially the local setup of each developer. They work on their feature/bugfix branches, and once their work is ready and peer-reviewed, it gets merged into the main branch, triggering deployment to the testing environment. This setup ensures that your main branch remains stable and is always in a deployable state, which is a key principle of continuous deployment.
+
+This approach minimizes the risk of unstable code reaching the testing or staging environments and maintains a clear pathway from development to production.
+
+<br/>
 
 ### GitLab CI/CD Workflow Steps
 Here’s a simplified version of the GitLab Flow, which includes the use of feature branches, testing, staging and the production environment:
@@ -81,7 +116,7 @@ Here’s a simplified version of the GitLab Flow, which includes the use of feat
 4. **Continuous Integration**:
     - Every merge into **`main`** triggers the CI pipeline which runs automated tests to ensure that the integration does not break the existing build..
 5. **Deployment to Testing**:
-    - If the CI pipeline passes, The `main` branch is automatically deployed to a testing environment for further testing. we can also deploy `main` into development environment.
+    - If the CI pipeline passes, The `main` branch is automatically deployed to a testing environment for further testing.
 6. **Staging/Pre-production to Production**:
     - When you decide it's time for a release (by accumulating features), create a `release/v1.0.0` branch from main. CI/CD pipeline is configured so that any push to a  release/ branch will deploy to your staging or pre-production environment. Extensive testing and any pre-release activities happen in this staging environment.
     - Extensive testing and any pre-release activities happen in this environment.
