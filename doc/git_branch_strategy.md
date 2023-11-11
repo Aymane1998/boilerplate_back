@@ -65,27 +65,27 @@ How we use different environments in conjunction with our branching strategy:
 
 1. **Development Environment:**
 
-**Purpose**: This is where developers initially build and test their features or bug fixes. It's essentially their local or individual development setup.
-**Branches Used:** Feature branches and bugfix branches.
-**Workflow:** Developers work on their tasks within these branches. This environment is more about the developer's local setup (their own machine) where they can run and test their code in isolation before it gets merged anywhere.
+- **Branches Used:** Feature branches and bugfix branches.
+- **Purpose**: This is where developers initially build and test their features or bug fixes. It's essentially their local or individual development setup.
+- **Workflow:** Developers work on their tasks within these branches. This environment is more about the developer's local setup (their own machine) where they can run and test their code in isolation before it gets merged anywhere.
 
-2. **Continuous Deployment to Testing Environment:**
+1. **Continuous Deployment to Testing Environment:**
 
-**Trigger:** Merges to the main branch.
-**Purpose:** The testing environment is continuously updated with the latest 'production-ready' code from the main branch. This is where QA or automated tests are run to ensure the stability of the code before it's released.
-**Workflow:** Once features/bugfixes are merged into the main branch, they are automatically deployed to this environment.
+- **Trigger:** Merges to the main branch.
+- **Purpose:** The testing environment is continuously updated with the latest 'production-ready' code from the main branch. This is where QA or automated tests are run to ensure the stability of the code before it's released.
+- **Workflow:** Once features/bugfixes are merged into the main branch, they are automatically deployed to this environment.
 
 3. **Staging Environment (Triggered by Release Branch):**
 
-**Trigger:** Creation of a release branch.
-**Purpose:** A pre-production environment that closely mimics the production setup. This is where final testing and client or stakeholder reviews happen.
-**Workflow:** After a set of features and fixes in the main branch is deemed ready for release, a release branch is created, which triggers deployment to staging. Once validated, this branch is then deployed to production.
+- **Trigger:** Creation of a release branch.
+- **Purpose:** A pre-production environment that closely mimics the production setup. This is where final testing and client or stakeholder reviews happen.
+- **Workflow:** After a set of features and fixes in the main branch is deemed ready for release, a release branch is created, which triggers deployment to staging. Once validated, this branch is then deployed to production.
 
 4. **Feature Environment (Optional):**
 
-**Purpose:** Sometimes, for large features or for features requiring special attention, it's beneficial to have an isolated environment for testing them.
-**Trigger:** Manual deployment of specific feature branches.
-**Workflow:** Not every feature branch is deployed here, only those that require extensive isolated testing or review by stakeholders. This deployment is usually done manually or via a specific trigger other than just creating a feature branch.
+- **Trigger:** Manual deployment of specific feature branches.
+- **Purpose:** Sometimes, for large features or for features requiring special attention, it's beneficial to have an isolated environment for testing them.
+- **Workflow:** Not every feature branch is deployed here, only those that require extensive isolated testing or review by stakeholders. This deployment is usually done manually or via a specific trigger other than just creating a feature branch.
 
 <br/>
 
