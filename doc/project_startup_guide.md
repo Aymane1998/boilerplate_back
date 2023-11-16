@@ -2,52 +2,64 @@
 ## 🧱  Setting Up the Project Locally
   ##### create virtual environment
 
-  ```
+  ```bash
   $ python -m venv venv
   ```
 
   ##### environment activation
-
-  ```
+  - windows
+  ```bash
   $ .\venv\Scripts\activate
   ```
 
-  **(mac/linux)**
-  ```
+  - Linux, Unix, MacOS 
+  ```bash
   $ source venv/bin/activate
   ```
 
   ##### dependency installation 
 
-  ```
+  ```bash
   $ pip install -r .\requirements.txt
+  ```
+
+  ##### overload settings with environment variables (launch before run server)
+  loads environment variables from an env file into the current shell session
+  - Linux, Unix, MacOS 
+  ```bash
+  $ set -a; source .env.local; set +a;
+
+  # or with the script
+  $ source ./scripts/loadenv.sh .env.local
+  ```
+  - windows
+  ```bash
+  # powershell
+  $  .\scripts\loadenv.ps1 .env.local
+
+  # cmd
+  $ .\scripts\loadenv.bat .env.local
   ```
 
   ##### makemigratoins
   ```
-    $ python manage.py makemigrations authentication
-    $ python manage.py makemigrations api
+  $ python manage.py makemigrations authentication
+  $ python manage.py makemigrations api
   ```
 
   ##### migrate
   ```
-    $ python manage.py migrate
-  ```
-
-  ##### overload settings with environment variables
-  it will convert terminal variables into environment variables
-  ```$ 
-  set -a; source .env.local; set +a;
+  $ python manage.py migrate
   ```
 
   ##### launch the backend server
   ```
-    $ python manage.py runserver
+  $ python manage.py runserver
   ```
 
   ##### If you need to create a user (admin)
   ```
-    $ python manage.py createsuperuser
+  $ python manage.py createsuperuser
   ```
 
 <br>
@@ -60,24 +72,24 @@ It's important to enforce code styling and formatting. we use **[pre-commit](con
 
 ## 📦 Start project locally with Docker
   ##### docker-compose (recommended)
-    ```
-      $ docker-compose up -d --build
-      $ docker-compose exec api python manage.py migrate
-      $ docker-compose exec api python manage.py createsuperuser
-    ```
+  ```bash
+    $ docker-compose up -d --build
+    $ docker-compose exec api python manage.py migrate
+    $ docker-compose exec api python manage.py createsuperuser
+  ```
 
   ##### build and run image
-    ```
-      $ docker build -t boilerplate_back .
-      $ docker run -it -d --name boilerplate_back -v "./:/home/app" -p 8000:8000 boilerplate_back python manage.py runserver 0.0.0.0:8000
-      $ docker exec -it boilerplate_back bash
-      $ python manage.py migrate
-      $ python manage.py createsuperuser
-    ```
+  ```bash
+    $ docker build -t boilerplate_back .
+    $ docker run -it -d --name boilerplate_back -v "./:/home/app" -p 8000:8000 boilerplate_back python manage.py runserver 0.0.0.0:8000
+    $ docker exec -it boilerplate_back bash
+    $ python manage.py migrate
+    $ python manage.py createsuperuser
+  ```
 
 <br>
 
 ## 🚢 Deploying back in Production Environment
-```
-  $ ./scripts/run-compose-prod.sh
+```bash
+$ ./scripts/run-compose-prod.sh
 ```
