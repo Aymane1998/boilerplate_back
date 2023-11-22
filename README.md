@@ -13,5 +13,5 @@ Follow the steps outlined there to clone the repository, install dependencies, a
 ## Prerequisites
 
 Essential software and their installation guidelines:
-- python v3.9
+- python version 3.9
 - [docker-desktop](https://www.docker.com/products/docker-desktop/)

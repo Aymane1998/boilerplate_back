@@ -70,7 +70,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=nao
+      - POSTGRES_DB=boilerplate
     volumes:
       - postgres_data:/var/lib/postgresql/data/
 
