@@ -10,9 +10,6 @@ WORKDIR $DockerHOME
 
 COPY ./requirements.txt .
 
-ARG http_proxy
-ARG https_proxy
-
 RUN apt-get update && apt-get install -y \
   build-essential \
   netcat
