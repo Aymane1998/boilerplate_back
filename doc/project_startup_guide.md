@@ -1,3 +1,12 @@
+# Project Local Setup
+
+- [Setting Up the Project Locally](#🧱-setting-up-the-project-locally)
+- [Setting up Precommit](#💡-setting-up-precommit)
+- [Start project locally with Docker](#📦-start-project-locally-with-docker)
+- [Additional Information](#additional-information)
+
+
+<br>
 
 ## 🧱  Setting Up the Project Locally
   ##### create virtual environment
@@ -89,7 +98,7 @@ It's important to enforce code styling and formatting. we use **[pre-commit](con
 
 <br>
 
-## 🚢 Deploying back in Production Environment
-```bash
-$ ./scripts/run-compose-prod.sh
-```
+
+## Additional Information
+
+- 🚢 [How we use Docker Compose to deploy in various environment (development,testing,staging,production)](./docker_compose_configuration.md)
