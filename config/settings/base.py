@@ -70,8 +70,8 @@ REST_FRAMEWORK = {
 }
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'NAO',
-    'DESCRIPTION': 'Outils RH pour la gestion des NAOS',
+    'TITLE': 'Boilerplate API',
+    'DESCRIPTION': 'This is a boilerplate API built with Django and Django REST Framework.',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False
 }
