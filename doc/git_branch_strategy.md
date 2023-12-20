@@ -2,6 +2,7 @@
 
 - [GitLab Flow](#gitlab-flow)
     - [Overview](#overview)
+    - [Keep branch strategy simple](#keep-branch-strategy-simple)
     - [Branch Types in GitLab Flow](#branch-types-in-gitlab-flow)
     - [Continuous Deployment Environments](#continuous-deployment-environments)
     - [GitLab CI/CD Workflow Steps](#gitlab-cicd-workflow-steps)
@@ -11,11 +12,23 @@
       - [Staging/Pre-Production Phase](#stagingpre-production-phase)
       - [After Release in Production](#after-release-in-production)
     - [General Practices](#general-practices)
+    - [Sources](#sources)
 
 <br/>
 
 ### Overview
 GitLab Flow is a workflow that incorporates aspects of both Git flow and GitHub flow and is adapted for continuous deployment. This workflow combines [feature-driven development](https://en.wikipedia.org/wiki/Feature-driven_development) and [feature branches](https://martinfowler.com/bliki/FeatureBranch.html) with issue tracking. Here’s how it works:
+
+<br/>
+
+### Keep branch strategy simple
+Keep our branch strategy simple. We Build a strategy from these three concepts:
+
+- Use feature branches for all new features and bug fixes.
+- Merge feature branches into the main branch using pull requests.
+- Keep a high quality, up-to-date main branch.
+
+A strategy that extends these concepts and avoids contradictions will result in a version control workflow for your team that is consistent and easy to follow.
 
 <br/>
 
@@ -208,3 +221,10 @@ Handling bugfixes and hotfixes in a continuous deployment environment like GitLa
 -  If there were any changes made in the release branch during staging testing (like configuration changes or any fixes), merge those back into main to ensure main reflects what's in production and any other active development branches to ensure that the fixes are integrated into the ongoing development work.
 
 Following this process ensures that bugfixes and hotfixes are handled efficiently and safely, minimizing disruption to ongoing development and to users in production.
+
+
+---
+### Sources
+
+[4 branching workflows for Git](https://medium.com/@patrickporto/4-branching-workflows-for-git-30d0aaee7bf)
+[Adpopt a Git branching strategy by Azure DevOps](https://learn.microsoft.com/en-us/azure/devops/repos/git/git-branching-guidance?view=azure-devops)
