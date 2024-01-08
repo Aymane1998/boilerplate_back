@@ -10,7 +10,7 @@ services:
       - 8001:8001
     command: gunicorn config.wsgi:application --bind 0.0.0.0:8001 --workers 4 --timeout 120
     networks:
-      - boilerplate_prod_network
+      - boilerplate_network
     volumes:
       - static_volume:/home/app/staticfiles
       - media_volume:/home/app/mediafiles
@@ -26,13 +26,23 @@ services:
     depends_on:
       - api
     networks:
-      - boilerplate_prod_network
+      - boilerplate_network
 
+<<<<<<< Updated upstream
+=======
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+    networks:
+      - boilerplate_network
+
+>>>>>>> Stashed changes
 volumes:
   static_volume:
   media_volume:
 
 networks:
-  boilerplate_prod_network:
+  boilerplate_network:
     driver: bridge
-    name: boilerplate_prod_network
+    name: boilerplate_network

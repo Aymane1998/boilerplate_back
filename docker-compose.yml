@@ -14,7 +14,7 @@ services:
     depends_on:
       - db
     networks:
-      - boilerplate_dev_network
+      - boilerplate_network
 
   db:
     image: postgres:15
@@ -27,19 +27,29 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     networks:
-      - boilerplate_dev_network
+      - boilerplate_network
 
+<<<<<<< Updated upstream
+=======
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+    networks:
+      - boilerplate_network
+
+>>>>>>> Stashed changes
   adminer:
     image: adminer
     ports:
       - 8080:8080
     networks:
-      - boilerplate_dev_network
+      - boilerplate_network
 
 volumes:
   postgres_data:
 
 networks:
-  boilerplate_dev_network:
+  boilerplate_network:
     driver: bridge
-    name: boilerplate_dev_network
+    name: boilerplate_network
