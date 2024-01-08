@@ -29,8 +29,6 @@ services:
     networks:
       - boilerplate_network
 
-<<<<<<< Updated upstream
-=======
   redis:
     image: redis:7
     ports:
@@ -38,7 +36,6 @@ services:
     networks:
       - boilerplate_network
 
->>>>>>> Stashed changes
   adminer:
     image: adminer
     ports:
