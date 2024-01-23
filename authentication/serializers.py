@@ -32,7 +32,15 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
 
-        fields = ['id', 'username', 'first_name', 'last_name', 'email', 'first_name', 'last_name', 'unite']
+        fields = ['id',
+                  'username',
+                  'first_name',
+                  'last_name',
+                  'email',
+                  'first_name',
+                  'last_name',
+                  'unite',
+                  'birth_date']
         depth = 1
 
     def to_representation(self, instance):
