@@ -40,7 +40,8 @@ class UserSerializer(serializers.ModelSerializer):
                   'first_name',
                   'last_name',
                   'unite',
-                  'birth_date']
+                  'birth_date'
+                  'about']
         depth = 1
 
     def to_representation(self, instance):
