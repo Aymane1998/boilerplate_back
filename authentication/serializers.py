@@ -24,8 +24,6 @@ class ServiceSerializer(serializers.ModelSerializer):
         representation['updated_at'] = instance.updated_at.strftime('%d/%m/%Y') if instance.updated_at else None
         representation['departement'] = {'value': instance.departement.id,
                                          'label': instance.departement.name} if instance.departement else None
-        representation['service'] = {'value': instance.departement.service.id,
-                                     'label': instance.departement.service.name} if instance.departement else None
         return representation
 
 class UserSerializer(serializers.ModelSerializer):
