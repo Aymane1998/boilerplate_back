@@ -20,6 +20,7 @@ class ServiceSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
+        # format Dates
         representation['created_at'] = instance.created_at.strftime('%d/%m/%Y') if instance.created_at else None
         representation['updated_at'] = instance.updated_at.strftime('%d/%m/%Y') if instance.updated_at else None
         representation['departement'] = {'value': instance.departement.id,
@@ -44,6 +45,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
+        # User's roles (groups names)
         representation['role'] = list(instance.groups.values_list('name', flat=True))
         if instance.unite:
             representation['unite'] = {'value': instance.unite.id, 'label': instance.unite.name}

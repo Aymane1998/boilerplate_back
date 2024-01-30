@@ -35,4 +35,6 @@ class Unite(BaseModel):
 class User(AbstractUser):
     unite = models.ForeignKey(Unite,on_delete=models.SET_NULL,related_name='unite', null=True, blank=True)
     birth_date = models.DateField(blank=True, null=True)
+    company_start_date = models.DateField(blank=True, null=True)
+    entity_start_date = models.DateField(blank=True, null=True)
     about = models.TextField()
