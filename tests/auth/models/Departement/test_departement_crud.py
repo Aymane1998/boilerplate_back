@@ -18,9 +18,6 @@ from tests.auth.fixtures.users import db_users
 
 @pytest.fixture
 def test_data(db, db_users):
-    for i in range(6):
-        DepartementFactory()
-
     departement1 = DepartementFactory()
 
     return {
