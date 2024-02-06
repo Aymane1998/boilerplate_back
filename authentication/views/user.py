@@ -1,4 +1,5 @@
 from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
 
 from authentication.models import User
 from authentication.permissions import IsAdmin
@@ -12,12 +13,12 @@ class UserCreateView(generics.CreateAPIView):
 class UserListView(generics.ListAPIView):
     queryset = User.objects.filter(is_superuser=False, is_staff=False)
     serializer_class = UserSerializer
-    # permission_classes = [IsAdmin]
+    permission_classes = [IsAuthenticated]
 
 class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.filter(is_superuser=False, is_staff=False)
     serializer_class = UserSerializer
-    # permission_classes = [IsAdmin]
+    permission_classes = [IsAuthenticated]
 
 class UserUpdateView(generics.UpdateAPIView):
     queryset = User.objects.filter(is_superuser=False, is_staff=False)
