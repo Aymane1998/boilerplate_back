@@ -2,6 +2,28 @@ from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from .models import User, Unite, Departement, Service
 
+class DepartementRepresentationSerializer(serializers.ModelSerializer):
+    value = serializers.IntegerField(source='id')
+    label = serializers.CharField(source='name')
+    class Meta:
+        model = Departement
+        fields = ['value', 'label']
+
+class ServiceRepresentationSerializer(serializers.ModelSerializer):
+    value = serializers.IntegerField(source='id')
+    label = serializers.CharField(source='name')
+    departement = DepartementRepresentationSerializer()
+    class Meta:
+        model = Service
+        fields = ['value', 'label', 'departement']
+
+class UniteRepresentationSerializer(serializers.ModelSerializer):
+    value = serializers.IntegerField(source='id')
+    label = serializers.CharField(source='name')
+    service = ServiceRepresentationSerializer()
+    class Meta:
+        model = Unite
+        fields = ['value', 'label', 'service']
 
 class UniteSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,6 +36,7 @@ class DepartementSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ServiceSerializer(serializers.ModelSerializer):
+    departement = DepartementRepresentationSerializer()
     class Meta:
         model = Service
         fields = '__all__'
@@ -23,11 +46,11 @@ class ServiceSerializer(serializers.ModelSerializer):
         # format Dates
         representation['created_at'] = instance.created_at.strftime('%d/%m/%Y') if instance.created_at else None
         representation['updated_at'] = instance.updated_at.strftime('%d/%m/%Y') if instance.updated_at else None
-        representation['departement'] = {'value': instance.departement.id,
-                                         'label': instance.departement.name} if instance.departement else None
         return representation
 
 class UserSerializer(serializers.ModelSerializer):
+    unite = UniteRepresentationSerializer()
+
     class Meta:
         model = User
 
@@ -40,17 +63,14 @@ class UserSerializer(serializers.ModelSerializer):
                   'last_name',
                   'unite',
                   'birth_date',
-                  'about']
+                  'about',
+                  'unite',]
         depth = 1
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         # User's roles (groups names)
         representation['role'] = list(instance.groups.values_list('name', flat=True))
-        if instance.unite:
-            representation['unite'] = {'value': instance.unite.id, 'label': instance.unite.name}
-            representation['service'] = {'value': instance.unite.service.id, 'label': instance.unite.service.name}
-            representation['departement'] = {'value': instance.unite.service.departement.id, 'label': instance.unite.service.departement.name}
         return representation
 
 

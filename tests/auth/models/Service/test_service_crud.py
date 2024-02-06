@@ -10,7 +10,7 @@ from rest_framework.status import (
     HTTP_401_UNAUTHORIZED,
 )
 
-from authentication.models import Service
+from authentication.models import Service, Departement
 from authentication.serializers import ServiceSerializer
 from tests.auth.factorys.service_factory import ServiceFactory
 from tests.auth.fixtures.departements import db_departements
@@ -19,7 +19,6 @@ from tests.auth.fixtures.users import db_users
 @pytest.fixture
 def test_data(db, db_users, db_departements):
     departement1 = db_departements['departement1']
-    departement1.pk = 1
 
     service1 = ServiceFactory(departement=departement1)
 
@@ -49,6 +48,7 @@ class TestServiceCRUDAPIView:
 
         api_client.force_authenticate(user=user_admin)
 
+
         data_service = {
             "name": self.faker.name(),
             "description": self.faker.paragraph(),
@@ -56,6 +56,7 @@ class TestServiceCRUDAPIView:
         }
 
         nbr_service_before = Service.objects.all().count()
+
         response = api_client.post(reverse(self.create_endpoint), data=data_service)
 
         nbr_service_after = Service.objects.all().count()

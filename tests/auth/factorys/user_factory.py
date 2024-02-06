@@ -5,7 +5,7 @@ class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = User
 
-    username = factory.Sequence(lambda x: f"{factory.Faker('first_name')} {x}")
+    username = factory.Faker('name')
 
     @factory.post_generation
     def groups(self, create, extracted, **kwargs):

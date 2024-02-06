@@ -6,23 +6,24 @@ from rest_framework.views import APIView
 
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from authentication.serializers import MyTokenObtainPairSerializer, UserSerializer
+# from authentication.serializers import MyTokenObtainPairSerializer, UserSerializer
+from authentication import serializers as auth_serializer
 
 # Create your views here.
 class MyTokenObtainPairView(TokenObtainPairView):
     """This class handles the token generation view."""
 
-    serializer_class = MyTokenObtainPairSerializer
+    serializer_class = auth_serializer.MyTokenObtainPairSerializer
 
 class CurrentUserView(APIView):
     """This class handles the current user view."""
 
     permission_classes = [permissions.IsAuthenticated]
-    serializer_class = UserSerializer
+    serializer_class = auth_serializer.UserSerializer
 
     def get(self, request):
         """Handle the GET request."""
-        serializer = UserSerializer(request.user)
+        serializer = auth_serializer.UserSerializer(request.user)
         return Response(serializer.data)
 
     # def put(self, request):
@@ -37,5 +38,3 @@ class CurrentUserView(APIView):
     #               )
     #     except User.DoesNotExist:
     #         return Response(status=status.HTTP_404_NOT_FOUND)
-
-

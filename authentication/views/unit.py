@@ -7,6 +7,7 @@ from authentication.serializers import UniteSerializer
 class UniteListView(generics.ListAPIView):
     queryset = Unite.objects.all()
     serializer_class = UniteSerializer
+    # permission_classes = [IsAdmin]
 
 class UniteCreateView(generics.CreateAPIView):
     queryset = Unite.objects.all()
@@ -21,6 +22,7 @@ class UniteUpdateView(generics.UpdateAPIView):
 class UniteDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Unite.objects.all()
     serializer_class = UniteSerializer
+    # permission_classes = [IsAdmin]
 
 class UniteDeleteView(generics.DestroyAPIView):
     queryset = Unite.objects.all()

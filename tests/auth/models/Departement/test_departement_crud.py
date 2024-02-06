@@ -3,12 +3,7 @@ from django.urls import reverse
 from faker import Faker
 import pytest
 from rest_framework.test import APIClient
-from rest_framework.status import (
-    HTTP_201_CREATED,
-    HTTP_200_OK,
-    HTTP_204_NO_CONTENT,
-    HTTP_401_UNAUTHORIZED,
-)
+from rest_framework import status
 
 from authentication.models import Departement
 from authentication.serializers import DepartementSerializer
@@ -54,7 +49,7 @@ class TestDepartementCRUDAPIView:
         response = api_client.post(reverse(self.create_endpoint), data=data_departement)
 
         nbr_departement_after = Departement.objects.all().count()
-        assert response.status_code == HTTP_201_CREATED
+        assert response.status_code == status.HTTP_201_CREATED
         assert nbr_departement_before + 1 == nbr_departement_after
 
     def test_get_list_departement(self, api_client, test_data):
@@ -63,7 +58,7 @@ class TestDepartementCRUDAPIView:
         api_client.force_authenticate(user=user_admin)
         response = api_client.get(reverse(self.list_endpoint))
 
-        assert response.status_code == HTTP_200_OK
+        assert response.status_code == status.HTTP_200_OK
         assert len(response.data) == Departement.objects.all().count()
 
     def test_put_departement(self, api_client, test_data):
@@ -80,7 +75,7 @@ class TestDepartementCRUDAPIView:
             data=serializer_data,
         )
 
-        assert response.status_code == HTTP_200_OK
+        assert response.status_code == status.HTTP_200_OK
 
         departement_updated = Departement.objects.get(id=departement1.id)
         assert departement_updated.name == "lorem"
@@ -95,7 +90,7 @@ class TestDepartementCRUDAPIView:
             reverse(self.delete_endpoint, kwargs={"pk": departement1.id})
         )
 
-        assert response.status_code == HTTP_204_NO_CONTENT
+        assert response.status_code == status.HTTP_204_NO_CONTENT
 
         queryset = Departement.objects.filter(id=departement1.id)
         assert queryset.count() == 0
@@ -110,7 +105,7 @@ class TestDepartementCRUDAPIView:
             reverse(self.detail_endpoint, kwargs={"pk": departement1.id})
         )
 
-        assert response.status_code == HTTP_200_OK
+        assert response.status_code == status.HTTP_200_OK
 
         dep1 = Departement.objects.get(pk=departement1.id)
         assert dep1.name == departement1.name

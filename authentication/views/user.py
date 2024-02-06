@@ -12,10 +12,12 @@ class UserCreateView(generics.CreateAPIView):
 class UserListView(generics.ListAPIView):
     queryset = User.objects.filter(is_superuser=False, is_staff=False)
     serializer_class = UserSerializer
+    # permission_classes = [IsAdmin]
 
 class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.filter(is_superuser=False, is_staff=False)
     serializer_class = UserSerializer
+    # permission_classes = [IsAdmin]
 
 class UserUpdateView(generics.UpdateAPIView):
     queryset = User.objects.filter(is_superuser=False, is_staff=False)

@@ -12,10 +12,12 @@ class ServiceCreateView(generics.CreateAPIView):
 class ServiceListView(generics.ListAPIView):
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer
+    # permission_classes = [IsAdmin]
 
 class ServiceDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer
+    # permission_classes = [IsAdmin]
 
 class ServiceUpdateView(generics.UpdateAPIView):
     queryset = Service.objects.all()
