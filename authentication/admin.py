@@ -1,10 +1,7 @@
 from django import forms
 from django.contrib import admin
 
-from .models import User
-
-# Register your models here.
-
+from .models import User, Departement, Service, Unite
 
 class UserForm(forms.ModelForm):
     new_password = forms.CharField(
@@ -38,3 +35,7 @@ class UserAdmin(admin.ModelAdmin):
     list_display = ('id', 'username')
     list_filter = ()
     search_fields = ('username',)
+
+admin.site.register(Departement)
+admin.site.register(Service)
+admin.site.register(Unite)
