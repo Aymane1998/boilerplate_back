@@ -2,6 +2,7 @@ from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from .models import User, Unite, Departement, Service
 
+
 class DepartementRepresentationSerializer(serializers.ModelSerializer):
     value = serializers.IntegerField(source='id')
     label = serializers.CharField(source='name')
@@ -36,7 +37,6 @@ class DepartementSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ServiceSerializer(serializers.ModelSerializer):
-    departement = DepartementRepresentationSerializer()
     class Meta:
         model = Service
         fields = '__all__'
