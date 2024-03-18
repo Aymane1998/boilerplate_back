@@ -26,7 +26,6 @@ repos:
       - id: black
         exclude: "(tests/|doc/)"
         exclude: migrations/
-        exclude: authentication/migrations/
         exclude: "(__init__)"
   - repo: https://github.com/PyCQA/flake8
     rev: 6.1.0
@@ -47,7 +46,6 @@ repos:
           ]
         exclude: "(tests/|doc/)"
         exclude: migrations/
-        exclude: authentication/migrations/
         exclude: "(__init__)"
   - repo: https://github.com/asottile/blacken-docs
     rev: 1.16.0
