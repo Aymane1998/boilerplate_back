@@ -15,6 +15,7 @@ repos:
       - id: destroyed-symlinks
       - id: end-of-file-fixer
         exclude: tests/
+        exclude: migrations/
         files: \.(py|sh|rst|yml|yaml)$
       - id: mixed-line-ending
       - id: trailing-whitespace
@@ -24,6 +25,9 @@ repos:
     hooks:
       - id: black
         exclude: "(tests/|doc/)"
+        exclude: migrations/
+        exclude: authentication/migrations/
+        exclude: "(__init__)"
   - repo: https://github.com/PyCQA/flake8
     rev: 6.1.0
     hooks:
@@ -33,7 +37,6 @@ repos:
             "flake8-blind-except",
             "flake8-bugbear",
             "flake8-comprehensions",
-            "flake8-docstrings",
             "flake8-implicit-str-concat",
             "flake8-import-order",
             "flake8-quotes",
@@ -43,6 +46,9 @@ repos:
             "pydocstyle>=5.0.0",
           ]
         exclude: "(tests/|doc/)"
+        exclude: migrations/
+        exclude: authentication/migrations/
+        exclude: "(__init__)"
   - repo: https://github.com/asottile/blacken-docs
     rev: 1.16.0
     hooks:

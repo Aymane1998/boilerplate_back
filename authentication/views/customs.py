@@ -9,11 +9,13 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 # from authentication.serializers import MyTokenObtainPairSerializer, UserSerializer
 from authentication import serializers as auth_serializer
 
+
 # Create your views here.
 class MyTokenObtainPairView(TokenObtainPairView):
     """This class handles the token generation view."""
 
     serializer_class = auth_serializer.MyTokenObtainPairSerializer
+
 
 class CurrentUserView(APIView):
     """This class handles the current user view."""

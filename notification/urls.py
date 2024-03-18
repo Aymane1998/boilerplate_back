@@ -1,7 +1,4 @@
+app_name = "notification"
 
 
-app_name = 'notification'
-
-
-urlpatterns = [
-]
+urlpatterns = []
