@@ -1,12 +1,12 @@
-from cgi import test
+import pytest
+
 from django.urls import reverse
 from faker import Faker
-import pytest
-from rest_framework.test import APIClient
 from rest_framework import status
 
 from authentication.models import Departement
 from authentication.serializers import DepartementSerializer
+from rest_framework.test import APIClient
 from tests.auth.factorys.departement_factory import DepartementFactory
 from tests.auth.fixtures.users import db_users
 
@@ -15,15 +15,13 @@ from tests.auth.fixtures.users import db_users
 def test_data(db, db_users):
     departement1 = DepartementFactory()
 
-    return {
-        "departement1": departement1,
-        "user_admin": db_users["user_admin"]
-    }
+    return {"departement1": departement1, "user_admin": db_users["user_admin"]}
 
 
 @pytest.fixture
 def api_client():
     return APIClient()
+
 
 @pytest.mark.django_db
 class TestDepartementCRUDAPIView:
@@ -109,5 +107,3 @@ class TestDepartementCRUDAPIView:
 
         dep1 = Departement.objects.get(pk=departement1.id)
         assert dep1.name == departement1.name
-
-

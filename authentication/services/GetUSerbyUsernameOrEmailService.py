@@ -2,7 +2,7 @@ from authentication import models
 from django.db.models import Q
 
 
-class GetUserByUsernameOrEmailService:
+class GetUserByUsernameOrEmail:
     def __init__(self, input):
         self.input = input
 
@@ -10,7 +10,7 @@ class GetUserByUsernameOrEmailService:
         try:
             return models.User.objects.get(Q(username=self.input) | Q(email=self.input))
         except models.User.DoesNotExist:
-            return None
+            raise ValueError("No  user found.")
 
     def handler(self):
         user = self.__find_user()

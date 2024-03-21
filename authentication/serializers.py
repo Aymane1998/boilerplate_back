@@ -1,6 +1,11 @@
-from rest_framework import serializers
+from authentication import exceptions, services
+from rest_framework import serializers, status
+
+from notification import services as notification_services
+
+from .models import Departement, Service, TokenResetPassword, Unite, User
+
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from .models import User, Unite, Departement, Service, TokenResetPassword
 
 
 class DepartementRepresentationSerializer(serializers.ModelSerializer):
@@ -89,7 +94,79 @@ class UserSerializer(serializers.ModelSerializer):
         return representation
 
 
+class CreateUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            "email",
+            "password",
+        )
+
+    def _get_username(self, validated_data):
+        return validated_data.get("email").split("@")[0]
+
+    def create(self, validated_data):
+        service_check_creation = services.CheckCreationUser(validated_data.get("email"))
+
+        if not service_check_creation.check_email_valid_domaine():
+            detail = "Email non autorisé"
+            raise exceptions.APIValidationError(
+                detail=detail, status=status.HTTP_403_FORBIDDEN
+            )
+
+        if service_check_creation.check_user_exist() is None:
+            user = User.objects.create(
+                email=validated_data.get("email"),
+                password=validated_data.get("password"),
+                username=self._get_username(validated_data),
+                is_active=False,
+            )
+
+        if service_check_creation.check_user_exist():
+            if service_check_creation.check_user_active():
+                detail = "Email already used."
+                raise exceptions.APIValidationError(
+                    detail=detail, status=status.HTTP_403_FORBIDDEN
+                )
+
+            else:
+                user = service_check_creation.get_user()
+
+        service_create_confirm_mail = services.CreateConfirmUserEmail(user=user)
+
+        subject = "Confirmation de l'adresse mail pour le portail prestataire"
+        message = f"Veuillez clicker sur le lien \
+            {service_create_confirm_mail.get_url()} \
+            afin de valider votre mail."
+        list_mails = [user.email]
+
+        service = notification_services.SendMailService(subject, message, list_mails)
+        service.send_mails()
+
+        return user
+
+
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        if not attrs.get("username"):
+            detail = "Miss username input value."
+            raise exceptions.APIValidationError(detail, status.HTTP_406_NOT_ACCEPTABLE)
+
+        try:
+            user = services.GetUserByUsernameOrEmail(
+                input=attrs.get("username")
+            ).handler()
+
+        except ValueError as error:
+            raise exceptions.APIValidationError(
+                detail=str(error),
+                status=status.HTTP_406_NOT_ACCEPTABLE,
+            )
+
+        attrs["username"] = user.username
+
+        return super().validate(attrs)
+
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)

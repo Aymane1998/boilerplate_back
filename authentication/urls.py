@@ -1,41 +1,39 @@
 from django.urls import path
-from rest_framework_simplejwt import views as jwt_views
-
-from .views.customs import MyTokenObtainPairView, CurrentUserView
-
-from .views.departement import (
-    DepartementListView,
-    DepartementCreateView,
-    DepartementDetailView,
-    DepartementUpdateView,
-    DepartementDeleteView,
-)
-
-from .views.service import (
-    ServiceDetailView,
-    ServiceUpdateView,
-    ServiceDeleteView,
-    ServiceListView,
-    ServiceCreateView,
-)
-
-from .views.unit import (
-    UniteListView,
-    UniteCreateView,
-    UniteDetailView,
-    UniteUpdateView,
-    UniteDeleteView,
-)
-
-from .views.user import (
-    UserListView,
-    UserDetailView,
-    UserUpdateView,
-    UserDeleteView,
-    UserCreateView,
-)
 
 from authentication import views
+from rest_framework_simplejwt import views as jwt_views
+
+from .views.customs import CurrentUserView, MyTokenObtainPairView
+from .views.departement import (
+    DepartementCreateView,
+    DepartementDeleteView,
+    DepartementDetailView,
+    DepartementListView,
+    DepartementUpdateView,
+)
+from .views.service import (
+    ServiceCreateView,
+    ServiceDeleteView,
+    ServiceDetailView,
+    ServiceListView,
+    ServiceUpdateView,
+)
+from .views.unit import (
+    UniteCreateView,
+    UniteDeleteView,
+    UniteDetailView,
+    UniteListView,
+    UniteUpdateView,
+)
+from .views.user import (
+    ConfirmationActivationUserView,
+    UserCreateView,
+    UserDeleteView,
+    UserDetailView,
+    UserListView,
+    UserUpdateView,
+)
+
 
 app_name = "authentication"
 
@@ -54,10 +52,15 @@ urlpatterns = [
     ),
     path("current-user/", CurrentUserView.as_view(), name="current-user"),
     path("user/", UserListView.as_view(), name="user-list"),
-    path("user/create", UserCreateView.as_view(), name="user-create"),
+    path("user/create-user/", UserCreateView.as_view(), name="user-create"),
     path("user/<int:pk>/", UserDetailView.as_view(), name="user-detail"),
     path("user/<int:pk>/update/", UserUpdateView.as_view(), name="user-update"),
     path("user/<int:pk>/delete/", UserDeleteView.as_view(), name="user-delete"),
+    path(
+        "users/confirmation-activation-user/<str:token>/",
+        ConfirmationActivationUserView.as_view(),
+        name="confirmation-activation-user",
+    ),
     path("service/", ServiceListView.as_view(), name="service-list"),
     path("service/create", ServiceCreateView.as_view(), name="service-create"),
     path("service/<int:pk>/", ServiceDetailView.as_view(), name="service-detail"),
