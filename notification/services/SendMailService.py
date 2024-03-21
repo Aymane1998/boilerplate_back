@@ -11,6 +11,4 @@ class SendMailService:
         return mails if isinstance(mails, list) else [mails]
 
     def send_mails(self):
-        tasks.send_multiple_mails.delay(
-            self.subject, self.message, self._list_receipts_mail
-        )
+        tasks.send_multiple_mails(self.subject, self.message, self._list_receipts_mail)
