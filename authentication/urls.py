@@ -1,7 +1,9 @@
+from authentication import views
+
 from django.urls import path
 
-from authentication import views
 from rest_framework_simplejwt import views as jwt_views
+
 
 from .views.customs import CurrentUserView, MyTokenObtainPairView
 from .views.departement import (
@@ -57,7 +59,7 @@ urlpatterns = [
     path("user/<int:pk>/update/", UserUpdateView.as_view(), name="user-update"),
     path("user/<int:pk>/delete/", UserDeleteView.as_view(), name="user-delete"),
     path(
-        "users/confirmation-activation-user/<str:token>/",
+        "user/confirmation-activation-user/<str:token>/",
         ConfirmationActivationUserView.as_view(),
         name="confirmation-activation-user",
     ),
