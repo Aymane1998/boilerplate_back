@@ -4,7 +4,7 @@ import django_filters
 
 
 class DepartmentFilters(django_filters.FilterSet):
-    ordering = django_filters.OrderingFilter(fields=(("-name", "name"),))
+    ordering = django_filters.OrderingFilter(fields=("name",))
 
     class Meta:
         model = models.Departement
