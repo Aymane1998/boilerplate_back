@@ -18,6 +18,4 @@ def mock_timezone_now(monkeypatch):
 
     monkeypatch.setattr("django.utils.timezone.now", MockedDatetime.now)
 
-    monkeypatch.setattr(
-        "notification.tasks.send_multiple_mails.delay", mock_delay_function
-    )
+    monkeypatch.setattr("notification.tasks.send_multiple_mails", mock_delay_function)
