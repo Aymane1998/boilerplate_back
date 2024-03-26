@@ -4,20 +4,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('authentication', '0004_user_about'),
+        ("authentication", "0004_user_about"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='company_start_date',
+            model_name="user",
+            name="company_start_date",
             field=models.DateField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='user',
-            name='entity_start_date',
+            model_name="user",
+            name="entity_start_date",
             field=models.DateField(blank=True, null=True),
         ),
     ]
