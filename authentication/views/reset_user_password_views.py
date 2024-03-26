@@ -1,8 +1,7 @@
+from authentication import models, serializers, services
 from django import shortcuts
-from rest_framework import views, status, response
 
-
-from authentication import serializers, models, services
+from rest_framework import status, response, views
 
 
 class ForgottenPasswordView(views.APIView):
@@ -15,9 +14,7 @@ class ForgottenPasswordView(views.APIView):
         serializer.is_valid(raise_exception=True)
 
         try:
-            user = services.GetUserByUsernameOrEmailService(
-                input=data["username"]
-            ).handler()
+            user = services.GetUserByUsernameOrEmail(input=data["username"]).handler()
 
             if user == None:
                 raise ValueError("No user found.")

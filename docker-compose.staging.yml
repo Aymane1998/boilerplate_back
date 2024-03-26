@@ -28,6 +28,39 @@ services:
     networks:
       - boilerplate_network
 
+  celery:
+    build: .
+    env_file:
+      - ./.env.staging
+    volumes:
+      - .:/home/app
+    command: celery -A config worker --loglevel=info
+    depends_on:
+      - rabbitmq
+      - redis
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+
+  smtp:
+    image: maildev/maildev
+    ports:
+      - 1080:1080
+      - 1025:1025
+    networks:
+      - boilerplate_network
+
 volumes:
   static_volume:
   media_volume:

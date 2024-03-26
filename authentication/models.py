@@ -1,7 +1,8 @@
+import uuid
+
+from django import utils
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django import utils
-import uuid
 
 
 class BaseModel(models.Model):
@@ -65,3 +66,14 @@ class TokenResetPassword(models.Model):
     @property
     def has_expired(self):
         return self.expiration_date < utils.timezone.now()
+
+
+class ConfirmationEmailToken(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    token = models.UUIDField(default=uuid.uuid4, editable=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    expiration_date = models.DateTimeField()
+
+    def save(self, *args, **kwargs) -> None:
+        self.expiration_date = utils.timezone.now() + utils.timezone.timedelta(days=1)
+        return super().save()
