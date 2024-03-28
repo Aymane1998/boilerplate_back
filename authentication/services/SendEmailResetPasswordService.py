@@ -1,7 +1,8 @@
+from authentication import models
+
 import environ
 
 from notification import services
-from authentication import models
 
 
 class SendMailResetPasswordService:
@@ -15,7 +16,7 @@ class SendMailResetPasswordService:
             user=self.user,
         )
         url_front = env("FRONT_URL")
-        url = f"{url_front}/reset-password/{token.token}"
+        url = f"{url_front}/reset/{token.token}"
 
         return url
 
