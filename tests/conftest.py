@@ -6,7 +6,7 @@ import pytest
 
 
 def mock_shared_task(*args):
-    def shared_task():
+    def delay():
         pass
 
 
