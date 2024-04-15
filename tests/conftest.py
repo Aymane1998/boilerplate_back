@@ -19,4 +19,7 @@ def mock_timezone_now(monkeypatch):
 
     monkeypatch.setattr("django.utils.timezone.now", MockedDatetime.now)
 
+
+@pytest.fixture(autouse=True)
+def mock_shared_task(monkeypatch):
     monkeypatch.setattr("celery.shared_task", mock_shared_task)
