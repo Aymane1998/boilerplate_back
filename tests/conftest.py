@@ -5,8 +5,9 @@ from django.utils import timezone
 import pytest
 
 
-def mock_delay_function(*args):
-    return None
+def mock_shared_task(*args):
+    def shared_task():
+        pass
 
 
 @pytest.fixture(autouse=True)
@@ -18,4 +19,4 @@ def mock_timezone_now(monkeypatch):
 
     monkeypatch.setattr("django.utils.timezone.now", MockedDatetime.now)
 
-    monkeypatch.setattr("notification.tasks.send_multiple_mails", mock_delay_function)
+    monkeypatch.setattr("celery.shared_task", mock_shared_task)
