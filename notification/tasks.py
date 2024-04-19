@@ -1,5 +1,6 @@
 from celery import shared_task
 
+from django.core.mail import send_mail
 import environ
 from email.header import Header
 from email.mime.text import MIMEText
@@ -49,3 +50,14 @@ def send_multiple_mails(subject, html_content, mail_receipts):
 
     except Exception as e:
         print(f"Error: {e}")
+
+
+@shared_task
+def send_mail_test(subject, html_content, mail_receipts):
+    send_mail(
+        subject=subject,
+        message=html_content,
+        recipient_list=mail_receipts,
+        from_email=None,
+        fail_silently=False,
+    )
