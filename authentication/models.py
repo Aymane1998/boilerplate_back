@@ -3,6 +3,7 @@ import uuid
 from django import utils
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from simple_history.models import HistoricalRecords
 
 
 class BaseModel(models.Model):
@@ -16,6 +17,7 @@ class BaseModel(models.Model):
 class Departement(BaseModel):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField()
+    history = HistoricalRecords()
 
     def __str__(self) -> str:
         return self.name

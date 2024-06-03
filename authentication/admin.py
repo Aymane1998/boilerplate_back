@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib import admin
+from simple_history.admin import SimpleHistoryAdmin
 
 from .models import Departement, Service, Unite, User
 
@@ -41,6 +42,6 @@ class UserAdmin(admin.ModelAdmin):
     search_fields = ("username",)
 
 
-admin.site.register(Departement)
+admin.site.register(Departement, SimpleHistoryAdmin)
 admin.site.register(Service)
 admin.site.register(Unite)
