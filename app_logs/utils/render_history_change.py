@@ -19,7 +19,6 @@ class ListChangeObject:
         return user_id, user_username
 
     def handler(self):
-
         all_changes = []
 
         for index, history in enumerate(self.query_historys):
@@ -29,7 +28,6 @@ class ListChangeObject:
                 delta = history.diff_against(self.query_historys[index + 1])
 
                 for change in delta.changes:
-
                     # filter by field or not
                     if self.field is None or self.field == change.field:
                         dict_change = {

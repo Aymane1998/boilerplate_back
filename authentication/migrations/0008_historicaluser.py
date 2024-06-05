@@ -9,7 +9,6 @@ import simple_history.models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("authentication", "0007_confirmationemailtoken"),
     ]
