@@ -17,7 +17,6 @@ class BaseModel(models.Model):
 class Departement(BaseModel):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField()
-    history = HistoricalRecords()
 
     def __str__(self) -> str:
         return self.name
@@ -53,6 +52,7 @@ class User(AbstractUser):
     company_start_date = models.DateField(blank=True, null=True)
     entity_start_date = models.DateField(blank=True, null=True)
     about = models.TextField()
+    history = HistoricalRecords()
 
 
 class TokenResetPassword(models.Model):
