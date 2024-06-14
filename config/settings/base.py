@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+
 import os
 import environ
 from pathlib import Path
@@ -50,10 +51,12 @@ INSTALLED_APPS = [
     "corsheaders",
     "drf_spectacular",
     "django_filters",
+    "simple_history",
     # Local apps
     "authentication.apps.AuthenticationConfig",
     "api.apps.ApiConfig",
     "notification.apps.NotificationConfig",
+    "app_logs.apps.AppLogsConfig",
 ]
 
 AUTH_USER_MODEL = "authentication.User"
@@ -131,6 +134,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "simple_history.middleware.HistoryRequestMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"

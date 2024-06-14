@@ -3,6 +3,7 @@ import uuid
 from django import utils
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from simple_history.models import HistoricalRecords
 
 
 class BaseModel(models.Model):
@@ -51,6 +52,7 @@ class User(AbstractUser):
     company_start_date = models.DateField(blank=True, null=True)
     entity_start_date = models.DateField(blank=True, null=True)
     about = models.TextField()
+    history = HistoricalRecords()
 
 
 class TokenResetPassword(models.Model):
