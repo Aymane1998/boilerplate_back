@@ -8,6 +8,7 @@ from notification import services
 class SendMailResetPasswordService:
     def __init__(self, user) -> None:
         self.user = user
+        self.template = "../../notification/templates/reset_password_template.html"
 
     def __get_url_reset_password(self):
         env = environ.Env()
@@ -20,21 +21,18 @@ class SendMailResetPasswordService:
 
         return url
 
-    def __get_message(self):
-        message = f"""
-            Voici le lien pour changer de mot de passe {self.__get_url_reset_password()}.
+    def __get_variables(self):
+        variables = {"url_reset_password": self.__get_url_reset_password()}
 
-            Si vous n'êtes pas à l'origine de cette demande vous pouvez ignorer ce message.
-        """
-        return message
+        return variables
 
     def handler(self) -> None:
         subject = "Changement de mot de passe portail préstataire"
-        message = self.__get_message()
 
         service_send_email = services.SendMailService(
             subject=subject,
-            message=message,
+            template=self.template,
             list_receipts_mail=self.user.email,
+            variables=self.__get_variables(),
         )
         service_send_email.send_mails()

@@ -132,16 +132,12 @@ class CreateUserSerializer(serializers.ModelSerializer):
             else:
                 user = service_check_creation.get_user()
 
-        service_create_confirm_mail = services.CreateConfirmUserEmail(user=user)
+        service_create_confirm_mail = services.CreateConfirmUserEmail(
+            user=user,
+            list_receipts_mail=[user.email],
+        )
 
-        subject = "Confirmation de l'adresse mail pour le portail prestataire"
-        message = f"Veuillez clicker sur le lien \
-            {service_create_confirm_mail.get_url()} \
-            afin de valider votre mail."
-        list_mails = [user.email]
-
-        service = notification_services.SendMailService(subject, message, list_mails)
-        service.send_mails()
+        service_create_confirm_mail.handler()
 
         return user
 
